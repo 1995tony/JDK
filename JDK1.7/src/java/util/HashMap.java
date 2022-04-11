@@ -129,6 +129,7 @@ public class HashMap<K,V>
     /**
      * The default initial capacity - MUST be a power of two.
      */
+    // 初始化容量為16
     static final int DEFAULT_INITIAL_CAPACITY = 16;
 
     /**
@@ -136,11 +137,13 @@ public class HashMap<K,V>
      * by either of the constructors with arguments.
      * MUST be a power of two <= 1<<30.
      */
+    // 2的30次方
     static final int MAXIMUM_CAPACITY = 1 << 30;
 
     /**
      * The load factor used when none specified in constructor.
      */
+    // 到臨界點會重新 resize, 預設 0.75
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
     /**
@@ -157,6 +160,7 @@ public class HashMap<K,V>
      * The next size value at which to resize (capacity * load factor).
      * @serial
      */
+    // 臨界點
     int threshold;
 
     /**
@@ -164,6 +168,7 @@ public class HashMap<K,V>
      *
      * @serial
      */
+    // 指定的 loadFactor
     final float loadFactor;
 
     /**
@@ -173,6 +178,7 @@ public class HashMap<K,V>
      * rehash).  This field is used to make iterators on Collection-views of
      * the HashMap fail-fast.  (See ConcurrentModificationException).
      */
+    // 計算修改的次數，與 expectedModCount 比較，若不一樣則噴錯
     transient int modCount;
 
     /**
@@ -263,6 +269,7 @@ public class HashMap<K,V>
      * @throws IllegalArgumentException if the initial capacity is negative
      *         or the load factor is nonpositive
      */
+//    構造方法1
     public HashMap(int initialCapacity, float loadFactor) {
         if (initialCapacity < 0)
             throw new IllegalArgumentException("Illegal initial capacity: " +
@@ -293,6 +300,7 @@ public class HashMap<K,V>
      * @param  initialCapacity the initial capacity.
      * @throws IllegalArgumentException if the initial capacity is negative.
      */
+//    構造方法2
     public HashMap(int initialCapacity) {
         this(initialCapacity, DEFAULT_LOAD_FACTOR);
     }
@@ -301,6 +309,7 @@ public class HashMap<K,V>
      * Constructs an empty <tt>HashMap</tt> with the default initial capacity
      * (16) and the default load factor (0.75).
      */
+//    構造方法3
     public HashMap() {
         this(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
     }
@@ -314,6 +323,7 @@ public class HashMap<K,V>
      * @param   m the map whose mappings are to be placed in this map
      * @throws  NullPointerException if the specified map is null
      */
+//    構造方法4
     public HashMap(Map<? extends K, ? extends V> m) {
         this(Math.max((int) (m.size() / DEFAULT_LOAD_FACTOR) + 1,
                       DEFAULT_INITIAL_CAPACITY), DEFAULT_LOAD_FACTOR);
@@ -367,7 +377,7 @@ public class HashMap<K,V>
     /**
      * Returns the number of key-value mappings in this map.
      *
-     * @return the number of key-value mappings in this map
+     * @return the numberC of key-value mappings in this map
      */
     public int size() {
         return size;
