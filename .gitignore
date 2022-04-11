@@ -1,1 +1,4 @@
 /bin/
+*.iml
+JDK1.7/.idea/
+JDK1.8/.idea/
