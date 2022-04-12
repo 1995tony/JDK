@@ -1,26 +1,26 @@
 /*
  * Copyright (c) 1997, 2013, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
+ * This code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 only, as
+ * published by the Free Software Foundation.  Oracle designates this
+ * particular file as subject to the "Classpath" exception as provided
+ * by Oracle in the LICENSE file that accompanied this code.
  *
+ * This code is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * version 2 for more details (a copy is included in the LICENSE file that
+ * accompanied this code).
  *
+ * You should have received a copy of the GNU General Public License version
+ * 2 along with this work; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
+ * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
+ * or visit www.oracle.com if you need additional information or have any
+ * questions.
  */
 
 package javax.swing;
@@ -61,7 +61,7 @@ import sun.swing.PrintingStatus;
 /**
  * The <code>JTable</code> is used to display and edit regular two-dimensional tables
  * of cells.
- * See <a href="https://docs.oracle.com/javase/tutorial/uiswing/components/table.html">How to Use Tables</a>
+ * See <a href="http://docs.oracle.com/javase/tutorial/uiswing/components/table.html">How to Use Tables</a>
  * in <em>The Java Tutorial</em>
  * for task-oriented documentation and examples of using <code>JTable</code>.
  *
@@ -2488,7 +2488,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
      * The default value of this property is defined by the look
      * and feel implementation.
      * <p>
-     * This is a <a href="https://docs.oracle.com/javase/tutorial/javabeans/writing/properties.html">JavaBeans</a> bound property.
+     * This is a <a href="http://docs.oracle.com/javase/tutorial/javabeans/writing/properties.html">JavaBeans</a> bound property.
      *
      * @param selectionForeground  the <code>Color</code> to use in the foreground
      *                             for selected list items
@@ -2526,7 +2526,7 @@ public class JTable extends JComponent implements TableModelListener, Scrollable
      * The default value of this property is defined by the look
      * and feel implementation.
      * <p>
-     * This is a <a href="https://docs.oracle.com/javase/tutorial/javabeans/writing/properties.html">JavaBeans</a> bound property.
+     * This is a <a href="http://docs.oracle.com/javase/tutorial/javabeans/writing/properties.html">JavaBeans</a> bound property.
      *
      * @param selectionBackground  the <code>Color</code> to use for the background
      *                             of selected cells

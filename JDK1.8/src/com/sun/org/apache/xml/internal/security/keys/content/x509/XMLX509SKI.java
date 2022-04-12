@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2007, 2015, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * reserved comment block
+ * DO NOT REMOVE OR ALTER!
  */
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -35,7 +35,7 @@ import org.w3c.dom.Element;
 /**
  * Handles SubjectKeyIdentifier (SKI) for X.509v3.
  *
- * @see <A HREF="https://docs.oracle.com/javase/1.5.0/docs/api/java/security/cert/X509Extension.html">
+ * @see <A HREF="http://docs.oracle.com/javase/1.5.0/docs/api/java/security/cert/X509Extension.html">
  * Interface X509Extension</A>
  */
 public class XMLX509SKI extends SignatureElementProxy implements XMLX509DataContent {

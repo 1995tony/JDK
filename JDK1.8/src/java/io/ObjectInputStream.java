@@ -1,26 +1,26 @@
 /*
  * Copyright (c) 1996, 2013, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
+ * This code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 only, as
+ * published by the Free Software Foundation.  Oracle designates this
+ * particular file as subject to the "Classpath" exception as provided
+ * by Oracle in the LICENSE file that accompanied this code.
  *
+ * This code is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * version 2 for more details (a copy is included in the LICENSE file that
+ * accompanied this code).
  *
+ * You should have received a copy of the GNU General Public License version
+ * 2 along with this work; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
+ * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
+ * or visit www.oracle.com if you need additional information or have any
+ * questions.
  */
 
 package java.io;
@@ -1829,8 +1829,6 @@ public class ObjectInputStream
         throws IOException
     {
         SerialCallbackContext oldContext = curContext;
-        if (oldContext != null)
-            oldContext.check();
         curContext = null;
         try {
             boolean blocked = desc.hasBlockExternalData();
@@ -1855,8 +1853,6 @@ public class ObjectInputStream
                 skipCustomData();
             }
         } finally {
-            if (oldContext != null)
-                oldContext.check();
             curContext = oldContext;
         }
         /*
@@ -1887,12 +1883,12 @@ public class ObjectInputStream
             ObjectStreamClass slotDesc = slots[i].desc;
 
             if (slots[i].hasData) {
-                if (obj == null || handles.lookupException(passHandle) != null) {
-                    defaultReadFields(null, slotDesc); // skip field values
-                } else if (slotDesc.hasReadObjectMethod()) {
+                if (obj != null &&
+                    slotDesc.hasReadObjectMethod() &&
+                    handles.lookupException(passHandle) == null)
+                {
                     SerialCallbackContext oldContext = curContext;
-                    if (oldContext != null)
-                        oldContext.check();
+
                     try {
                         curContext = new SerialCallbackContext(obj, slotDesc);
 
@@ -1909,8 +1905,6 @@ public class ObjectInputStream
                         handles.markException(passHandle, ex);
                     } finally {
                         curContext.setUsed();
-                        if (oldContext!= null)
-                            oldContext.check();
                         curContext = oldContext;
                     }
 
@@ -1923,7 +1917,6 @@ public class ObjectInputStream
                 } else {
                     defaultReadFields(obj, slotDesc);
                 }
-
                 if (slotDesc.hasWriteObjectData()) {
                     skipCustomData();
                 } else {

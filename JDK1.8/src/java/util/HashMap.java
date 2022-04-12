@@ -1,26 +1,26 @@
 /*
  * Copyright (c) 1997, 2013, Oracle and/or its affiliates. All rights reserved.
- * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
+ * This code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 only, as
+ * published by the Free Software Foundation.  Oracle designates this
+ * particular file as subject to the "Classpath" exception as provided
+ * by Oracle in the LICENSE file that accompanied this code.
  *
+ * This code is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * version 2 for more details (a copy is included in the LICENSE file that
+ * accompanied this code).
  *
+ * You should have received a copy of the GNU General Public License version
+ * 2 along with this work; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
+ * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
+ * or visit www.oracle.com if you need additional information or have any
+ * questions.
  */
 
 package java.util;
@@ -232,7 +232,6 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     /**
      * The default initial capacity - MUST be a power of two.
      */
-    // 預設大小為16
     static final int DEFAULT_INITIAL_CAPACITY = 1 << 4; // aka 16
 
     /**
@@ -240,13 +239,11 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      * by either of the constructors with arguments.
      * MUST be a power of two <= 1<<30.
      */
-    // 最大容量為 2的30次方
     static final int MAXIMUM_CAPACITY = 1 << 30;
 
     /**
      * The load factor used when none specified in constructor.
      */
-    // 預設超過1/4 就 resizee
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
     /**
@@ -377,10 +374,6 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     /**
      * Returns a power of two size for the given target capacity.
      */
-//    找到比 cap 大的 2^n
-//    用在 初始化有 initialCapacity的時候
-//    putMapEntries <- new HashMap(), new LinkedHashMap(), clone, putAll
-//    readObject <- null
     static final int tableSizeFor(int cap) {
         int n = cap - 1;
         n |= n >>> 1;
@@ -558,7 +551,6 @@ public class HashMap<K,V> extends AbstractMap<K,V>
      *
      * @see #put(Object, Object)
      */
-//    取得值, mod 其 hash 後由 table 找其鍊
     public V get(Object key) {
         Node<K,V> e;
         return (e = getNode(hash(key), key)) == null ? null : e.value;
@@ -580,9 +572,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                 return first;
             if ((e = first.next) != null) {
                 if (first instanceof TreeNode)
-//                若 first 是 TreeNode 類型，用紅黑樹找
                     return ((TreeNode<K,V>)first).getTreeNode(hash, key);
-//                對鍊表進行查找
                 do {
                     if (e.hash == hash &&
                         ((k = e.key) == key || (key != null && key.equals(k))))
@@ -634,28 +624,22 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
                    boolean evict) {
         Node<K,V>[] tab; Node<K,V> p; int n, i;
-//        若Null, 初始化 table
         if ((tab = table) == null || (n = tab.length) == 0)
             n = (tab = resize()).length;
-//        若 hash 位置還沒有值, new Node
         if ((p = tab[i = (n - 1) & hash]) == null)
             tab[i] = newNode(hash, key, value, null);
         else {
             Node<K,V> e; K k;
-            // 若為重複的，則覆蓋
             if (p.hash == hash &&
                 ((k = p.key) == key || (key != null && key.equals(k))))
                 e = p;
-            // 若為紅黑樹, 則用紅黑樹的方法 putVal
             else if (p instanceof TreeNode)
                 e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
-            // 一般 Node的 putVal
             else {
                 for (int binCount = 0; ; ++binCount) {
                     if ((e = p.next) == null) {
                         p.next = newNode(hash, key, value, null);
                         if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
-//                            轉為紅黑樹
                             treeifyBin(tab, hash);
                         break;
                     }
@@ -667,7 +651,6 @@ public class HashMap<K,V> extends AbstractMap<K,V>
             }
             if (e != null) { // existing mapping for key
                 V oldValue = e.value;
-//                onlyIfAbsent 表示是否僅在 oldValue 為 null 的情況下更新鍵值對的值
                 if (!onlyIfAbsent || oldValue == null)
                     e.value = value;
                 afterNodeAccess(e);
@@ -675,7 +658,6 @@ public class HashMap<K,V> extends AbstractMap<K,V>
             }
         }
         ++modCount;
-//        超過閥值，則擴充
         if (++size > threshold)
             resize();
         afterNodeInsertion(evict);
@@ -701,7 +683,6 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                 threshold = Integer.MAX_VALUE;
                 return oldTab;
             }
-//            重新新取得新容量大小
             else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY &&
                      oldCap >= DEFAULT_INITIAL_CAPACITY)
                 newThr = oldThr << 1; // double threshold
@@ -729,13 +710,11 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                     if (e.next == null)
                         newTab[e.hash & (newCap - 1)] = e;
                     else if (e instanceof TreeNode)
-//                        重新映射時，需對紅黑樹進行拆分
                         ((TreeNode<K,V>)e).split(this, newTab, j, oldCap);
                     else { // preserve order
                         Node<K,V> loHead = null, loTail = null;
                         Node<K,V> hiHead = null, hiTail = null;
                         Node<K,V> next;
-//                        遍歷鍊表，並將鍊表節點按原順序進行分組
                         do {
                             next = e.next;
                             if ((e.hash & oldCap) == 0) {
@@ -768,7 +747,6 @@ public class HashMap<K,V> extends AbstractMap<K,V>
         return newTab;
     }
 
-    Map a = new LinkedHashMap<String, String>(1,2,false);
     /**
      * Replaces all linked nodes in bin at index for given hash unless
      * table is too small, in which case resizes instead.
